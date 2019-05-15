@@ -37,7 +37,7 @@ def acc(pred, real):
     else:
         return -1
 
-categories = np.load("categories.npy")
+#categories = np.load("categories.npy")
 x_4v8g = np.load("x_4v8g.npy")
 x_8v16g = np.load("x_8v16g.npy")
 y_4v8g = np.load("y_4v8g.npy")
@@ -60,7 +60,7 @@ clf.append(KNeighborsClassifier(n_neighbors=3))
 clf.append(DecisionTreeClassifier())
 clf.append(RandomForestClassifier(n_estimators=8))
 clf.append(GaussianNB())
-clf.append(SVC(kernel='rbf', C=100, gamma=0.001, probability=True))
+#clf.append(SVC(kernel='rbf', C=100, gamma=0.001, probability=True))
 clf.append(GradientBoostingClassifier(n_estimators=200))
 clf.append(AdaBoostClassifier(n_estimators=100))
 methods = ['dummyClassify','KNN','DecisionTree',"RandomForest","NaiveBayes","SVM","GDBT","AdaBoost"]
