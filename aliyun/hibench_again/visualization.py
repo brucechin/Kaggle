@@ -31,7 +31,7 @@ y_half4v8g = np.load("hibench_half4v8g_y.npy")
 y_half4v16g = np.load("hibench_half4v16g_y.npy")
 y_half8v16g = np.load("hibench_half8v16g_y.npy")
 
-def draw(st=0, ed=260):
+def draw(st=0, ed=296):
     x = [i for i in range(ed-st)]
     plt.figure()
     plt.scatter(x,y_4v8g[st:ed],label="c4.large")
@@ -41,11 +41,11 @@ def draw(st=0, ed=260):
     plt.scatter(x,y_half4v16g[st:ed],label="g5.large")
     plt.scatter(x,y_half8v16g[st:ed],label="c4.xlarge")
     plt.ylabel("run time(s)")
-    plt.xlabel("trial index(0-49 is Bayes,50-99 is KMeans,100-149 is NutchIndexing)")
+    plt.xlabel("trial index(0-49 is Bayes,50-99 is KMeans)")
     plt.legend()
     plt.show()
 
-draw(100,260)
+draw(100,199)
 
 # index_to_delete = []
 # for i in range(len(ratio)):

@@ -1,0 +1,3 @@
+hibench.report依次是20轮的terasort,wordcount,bayes,kmeans,nutchindex和pagerank。三台服务器中每一轮的参数是对应相等匹配的。因为有数据准备阶段，程序执行阶段从一个date打印出来的时间戳开始(2019开头），到hadoop打印出程序使用时间，这个范围内的vmstat每1秒钟打印信息才是程序执行期间的硬件状态信息。我的转化成numpy的代码可以参考于hibench_process.py。
+
+redis.out和mongo.out是数据库的测试，redis为训练集，有1000轮；mongo可作为测试集，只有200轮。应当以每秒吞吐率或者延时作为性能度量标准。每一轮中，随机指定了操作命令，可能是read,update,insert,scan和readmodifywrite；同时随机指定了操作规模和并行度。提取是，应当以date打印出来的时间戳(19开头)为开始，到数据库打印统计信息为结束，提取vmstat每秒钟数据。

@@ -1,3 +1,4 @@
+#这段代码用于线下收集的数据的可视化
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -24,9 +25,12 @@ categories = np.load("categories.npy")
 # x_8v16g = np.load("x_8v16g.npy")
 # x_4v16g = np.load("x_4v16g.npy")
 
-y_4v8g = np.load("gpu_dl/gtx1080_y_2.npy")
-y_4v16g = np.load("gpu_dl/titan_y_2.npy")
-y_8v16g = np.load("image_compression/clean_image_compression_8v16g_y.npy")
+y_4v8g = np.load("hibench_again/hibench_4v8g_y.npy")
+y_4v16g = np.load("hibench_again/hibench_4v16g_y.npy")
+y_8v16g = np.load("hibench_again/hibench_8v16g_y.npy")
+y_half4v8g = np.load("hibench_again/hibench_half4v8g_y.npy")
+y_half4v16g = np.load("hibench_again/hibench_half4v16g_y.npy")
+y_half8v16g = np.load("hibench_again/hibench_half8v16g_y.npy")
 
 def clean_outliner(input, lower, upper):
     for i in range(len(input)):
@@ -34,18 +38,24 @@ def clean_outliner(input, lower, upper):
             input[i] = input[i-1]
     return input
 
-y_4v8g = clean_outliner(y_4v8g,0,60000)
-y_4v16g = clean_outliner(y_4v16g,0,60000)
-y_8v16g = clean_outliner(y_8v16g,0,60000)
+# y_4v8g = clean_outliner(y_4v8g,1000,60000)
+# y_4v16g = clean_outliner(y_4v16g,1000,60000)
+# y_8v16g = clean_outliner(y_8v16g,1000,60000)
+# y_half4v8g = clean_outliner(y_half4v8g,1000,60000)
+# y_half4v16g = clean_outliner(y_half4v16g,1000,60000)
+# y_half8v16g = clean_outliner(y_half8v16g,1000,60000)
 
-x = [i for i in range(len(y_4v8g))]
+x = [i for i in range(99)]
 plt.figure()
-plt.title("ResNet training time at two GPUs")
-plt.ylabel("run time(s)")
+plt.title("YCSB+MongoDB performance")
+plt.ylabel("run time")
 plt.xlabel("trial index")
-plt.scatter(x,y_4v16g,label="titan(pascal)")
-#plt.scatter(x,y_8v16g,label="c5.2xlarge")
-plt.scatter(x,y_4v8g,label="gtx 1080ti")
+plt.scatter(x,y_4v16g[:99],label="g5.xlarge")
+plt.scatter(x,y_8v16g[:99],label="c5.2xlarge")
+plt.scatter(x,y_4v8g[:99],label="c4.large")
+plt.scatter(x,y_half4v16g[:99],label="g5.large")
+plt.scatter(x,y_half8v16g[:99],label="c5.xlarge")
+plt.scatter(x,y_half4v8g[:99],label="c4.medium")
 plt.legend()
 plt.show()
 

@@ -8,13 +8,15 @@ import numpy as np
 times=8
 max_time=100000
 features=12
-data_x=np.zeros((10000,times,features),dtype=int)-1
-tmp=np.zeros((max_time,features),dtype=int)-1
-data_y=np.zeros((10000,1),dtype=float)-1
 
-files=["extra_hibench_8v16g.report"]
-num=-1
+
+files=["hibench_4v8g.report","hibench_4v16g.report","hibench_8v16g.report","hibench_half4v8g.report","hibench_half4v16g.report","hibench_half8v16g.report"]
+
 for file in files:
+    num = -1
+    data_x = np.zeros((10000, times, features), dtype=int) - 1
+    tmp = np.zeros((max_time, features), dtype=int) - 1
+    data_y = np.zeros((10000, 1), dtype=float) - 1
     f=open(file,'rb')
     label=0
     while(True):
@@ -34,7 +36,6 @@ for file in files:
             # if line.split()[2]=='0':
             #     label=-1
             #     continue
-            print(label)
             data_y[num]=label * 1
             #print(line.split()[3],data_y[num])
             if label<=times:#太短的任务数据忽略掉了
@@ -71,11 +72,6 @@ for file in files:
             if label>=max_time:
                 print('over times')
     print(file,"finish:",num+1)
-        
     f.close()
-#print(data_x[:])
-print(data_y[:num])
-
-
-np.save('hibench_8v16g_x.npy',data_x[0:260])
-np.save('hibench_8v16g_y.npy',data_y[0:260])
+    np.save(file[:-7] +'_x.npy',data_x[0:296])
+    np.save(file[:-7] +'_y.npy',data_y[0:296])
